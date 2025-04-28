@@ -12,5 +12,5 @@ class PatientAdmin(admin.ModelAdmin):
     insurance_number_short.short_description = 'Insurance No.'
     
     def phone_short(self, obj):
-        return obj.contact_details[:30] + '...' if len(obj.contact_details) > 30 else obj.contact_details
+        return obj.contact_details[:30] + '...' if len(obj.contact_details) > 30 else obj.phone
     phone_short.short_description = 'Contact Info'

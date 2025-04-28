@@ -46,10 +46,10 @@ router.register(r'appointments', AppointmentViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('o/', include(('oauth2_provider.urls', 'oauth2_provider'), namespace='oauth2_provider')),
+    path('api/o/', include(('oauth2_provider.urls', 'oauth2_provider'), namespace='oauth2_provider')),
     path('api/me/', CurrentUserView.as_view(), name='current-user'),
     path('api/change-password/', ChangePasswordView.as_view(), name='change-password'),
-    path('swagger.<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json', label='Main API entry point'),
+    path('swagger.<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

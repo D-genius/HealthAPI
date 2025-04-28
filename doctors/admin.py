@@ -13,7 +13,7 @@ class DoctorAdmin(admin.ModelAdmin):
     search_fields = ('user__email', 'specialization')
     
     def formatted_contact(self, obj):
-        return obj.contact_details[:30] + '...' if len(obj.contact_details) > 30 else obj.contact_details
+        return obj.contact_details[:30] + '...' if len(obj.contact_details) > 30 else obj.phone
     formatted_contact.short_description = 'Contact Info'
 
 @admin.register(Availability)

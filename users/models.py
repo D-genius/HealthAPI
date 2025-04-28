@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = []
     is_patient = models.BooleanField(default=False)
     is_doctor = models.BooleanField(default=False)
 

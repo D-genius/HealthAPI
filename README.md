@@ -15,7 +15,7 @@ DATABASES = {
     }
 }
 
-5. Generate an encryption key and add it to your `.env` file
+5. Generate an encryption key and add it to your `.env` file of your root project.
 - python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 - FIELD_ENCRYPTION_KEY=Your_Key
 

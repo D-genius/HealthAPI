@@ -35,6 +35,7 @@ class PatientSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user_data = validated_data.pop('user')
         user = CustomUser.objects.create_user(
+            username=user_data['email'],
             email=user_data['email'],
             password=user_data['password'],
             first_name=user_data.get('first_name', ''),
@@ -61,6 +62,7 @@ class DoctorSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user_data = validated_data.pop('user')
         user = CustomUser.objects.create_user(
+            username=user_data['email'],
             email=user_data['email'],
             password=user_data['password'],
             first_name=user_data.get('first_name', ''),

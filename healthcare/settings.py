@@ -162,7 +162,10 @@ OAUTH2_PROVIDER = {
     'SCOPES': {
         'read': 'Read access',
         'write': 'Write access',
-    }
+    },
+    # 'ACCESS_TOKEN_EXPIRE_SECONDS': 36000,
+    # 'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
+    # 'GRANT_TYPES': ['password&username']
 }
 
 #user authentication
