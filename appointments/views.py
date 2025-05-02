@@ -25,9 +25,10 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         if request.user.user_type != 'patient':
             raise PermissionDenied("Only patients can book appointments.")
         #Trigger async task
+        # scheduled_datetime_str = Appointment.scheduled_datetime.isoformat()
         task = schedule_appointment.delay(
             request.data.get('doctor'),
-            request.data.get('scheduled_appointment'),
+            request.data.get('scheduled_datetime'),
             request.user.id
         )
         return Response({'task_id': task.id}, status=status.HTTP_202_ACCEPTED)

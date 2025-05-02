@@ -27,6 +27,8 @@ SECRET_KEY = 'bc1&0mci@eq0$&3#@!pjr)$&57o65vu))dpr0#n5@k^2*a+y8d'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["4811-102-135-169-195.ngrok-free.app", "localhost:8000"]
+
 #load environment variables
 load_dotenv()
 
@@ -50,7 +52,8 @@ INSTALLED_APPS = [
     'appointments',
     'users',
     'drf_yasg',
-    'corsheaders'
+    'corsheaders',
+    'django_celery_results',
     # 'drf_spectacular',
 ]
 
@@ -70,6 +73,7 @@ ROOT_URLCONF = 'healthcare.urls'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    # "https://4811-102-135-169-195.ngrok-free.app",
 ]
 
 TEMPLATES = [
@@ -138,6 +142,7 @@ SWAGGER_SETTINGS = {
         }
     },
     'enabled_methods': ['GET', 'POST','PUT','PATCH','DELETE'],
+    'is_authenticated': True,
     'USE_SESSION_AUTH': False,
     'JSON_EDITOR': True,
 }
@@ -171,8 +176,14 @@ OAUTH2_PROVIDER = {
 #user authentication
 AUTH_USER_MODEL = 'users.CustomUser'
 #celery message queue
-CELERY_BROKER_URL = 'amqp://localhost'
-CELERY_RESULT_BACKEND = 'rpc://'
+# CELERY_BROKER_URL = 'amqp://localhost' #using rabbitmq
+# CELERY_RESULT_BACKEND = 'rpc://'
+
+CELERY_BROKER_URL = 'sqla+postgresql://postgres:SW2345678@localhost/health'
+CELERY_RESULT_BACKEND = 'django-db'  # Store results in Django database
+CELERY_TIMEZONE = 'Africa/Nairobi'
+CELERY_ENABLE_UTC = False
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 

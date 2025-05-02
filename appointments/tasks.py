@@ -3,12 +3,18 @@ from .models import Appointment
 from doctors.models import Availability
 from patients.models import Patient
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from django.db import transaction
 
 @shared_task
-def schedule_appointment(user_id, doctor_id, scheduled_datetime):
+def schedule_appointment(user_id, doctor_id, scheduled_datetime_str):
     patient = Patient.objects.get(user_id=user_id)
-    scheduled_datetime = timezone.make_aware(timezone.datetime.fromisoformat(scheduled_datetime))
+
+    # scheduled_datetime = timezone.make_aware(timezone.datetime.fromisoformat(scheduled_datetime_str.replace('Z', '+00:00')))
+    scheduled_datetime = parse_datetime(scheduled_datetime_str)
+    if timezone.is_naive(scheduled_datetime):
+        scheduled_datetime = timezone.make_aware(scheduled_datetime, timezone.utc)
+
     # Check availability
     available = Availability.objects.filter(
         doctor_id=doctor_id,
@@ -18,15 +24,19 @@ def schedule_appointment(user_id, doctor_id, scheduled_datetime):
     ).exists()
 
     if not available:
-        return ValueError("Doctor not available at this time.")
+        return ValueError(f"Doctor {doctor_id} not available at {scheduled_datetime}")
 
     # Check conflicts
+    buffer = timezone.timedelta(minutes=15)
     conflict = Appointment.objects.filter(
         doctor_id=doctor_id,
-        scheduled_datetime=scheduled_datetime
+        scheduled_datetime__range=(
+            scheduled_datetime - buffer,
+            scheduled_datetime + buffer
+        )
     ).exists()
     if conflict:
-        return ValueError("Appointment slot already booked.")
+        raise ValueError(f"Appointment slot at {scheduled_datetime} already booked")
 
     # Create appointment
     appointment = Appointment.objects.create(
