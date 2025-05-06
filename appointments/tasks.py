@@ -5,15 +5,15 @@ from patients.models import Patient
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 from django.db import transaction
+import datetime  # Added import for datetime
 
 @shared_task
 def schedule_appointment(user_id, doctor_id, scheduled_datetime_str):
     patient = Patient.objects.get(user_id=user_id)
 
-    # scheduled_datetime = timezone.make_aware(timezone.datetime.fromisoformat(scheduled_datetime_str.replace('Z', '+00:00')))
     scheduled_datetime = parse_datetime(scheduled_datetime_str)
     if timezone.is_naive(scheduled_datetime):
-        scheduled_datetime = timezone.make_aware(scheduled_datetime, timezone.utc)
+        scheduled_datetime = timezone.make_aware(scheduled_datetime, datetime.timezone.utc)  # Fixed: timezone.utc -> datetime.timezone.utc
 
     # Check availability
     available = Availability.objects.filter(
@@ -27,7 +27,7 @@ def schedule_appointment(user_id, doctor_id, scheduled_datetime_str):
         return ValueError(f"Doctor {doctor_id} not available at {scheduled_datetime}")
 
     # Check conflicts
-    buffer = timezone.timedelta(minutes=15)
+    buffer = timezone.timedelta(minutes=15)  # This line is fine
     conflict = Appointment.objects.filter(
         doctor_id=doctor_id,
         scheduled_datetime__range=(
