@@ -18,8 +18,15 @@ DATABASES = {
 5. Generate an encryption key and add it to your `.env` file of your root project.
 - python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 - FIELD_ENCRYPTION_KEY=Your_Key
+- Run the command `python manage.py shell -c "from django.conf import settings; print(settings.FIELD_ENCRYPTION_KEY)"` to verify encryption key
 
-6. Start your message broker with `rabbitmq-server`
+6. Edit you settings with the valid credentials with your database settings `CELERY_BROKER_URL = 'sqla+postgresql://<user>:<password>@<host>/<database>'`
 7. Run your celery task queue service using `celery -A healthcare worker --loglevel=info`
 8. Run `python manage.py makemigrations` to initialize migrations then run `python manage.py migrate` to migrate models to your database
 9. To start you application run the command `python manage.py runserver`
+- To access the endpoints `http://127.0.0.1:8000/api/`
+- To access the Administrator pannel `http://127.0.0.1:8000/admin/`
+- To access the Swagger UI `http://127.0.0.1:8000/swagger/`
+- To access the endpoints `http://127.0.0.1:8000/api/`
+- To access the Documentation `http://127.0.0.1:8000/redoc/`
+

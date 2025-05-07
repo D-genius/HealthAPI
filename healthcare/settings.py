@@ -17,7 +17,6 @@ from cryptography.fernet import Fernet
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -139,12 +138,15 @@ SWAGGER_SETTINGS = {
             'type': 'apiKey',
             'name': 'Authorization',
             'in': 'header',
+            'description': 'JWT/Bearer token. Example: "Bearer {token}"'
         }
     },
     'enabled_methods': ['GET', 'POST','PUT','PATCH','DELETE'],
-    'is_authenticated': True,
+    'SECURITY_REQUIREMENTS': [{'Bearer': []}],
     'USE_SESSION_AUTH': False,
+    'REFETCH_SCHEMA_WITH_AUTH': True,
     'JSON_EDITOR': True,
+    'PERSIST_AUTH': False,
 }
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
