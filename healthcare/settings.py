@@ -28,8 +28,9 @@ load_dotenv()
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get('DEBUG', False).lower() == 'true'
-DEBUG = 'True'
+DEBUG = os.environ.get('DEBUG', False).lower() == 'true'
+# DEBUG = 'True'
+# PORT = os.environ.get('PORT')
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
@@ -75,6 +76,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://patient-scheduling.netlify.app",
+    "https://healthapi-9ak1.onrender.com",
 ]
 
 TEMPLATES = [
