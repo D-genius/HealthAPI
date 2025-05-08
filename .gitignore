@@ -2,8 +2,11 @@
 .env
 .venv
 env
+venv
 oenv
 # Ignore all migration files
 **/migrations/*.py
 **/migrations/*.pyc
 !**/migrations/__init__.py
+#Not real requiements
+require.txt

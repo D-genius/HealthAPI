@@ -11,25 +11,27 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import  dj_database_url
 from dotenv import load_dotenv
 from cryptography.fernet import Fernet
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#load environment variables
+load_dotenv()
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'bc1&0mci@eq0$&3#@!pjr)$&57o65vu))dpr0#n5@k^2*a+y8d'
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ["4811-102-135-169-195.ngrok-free.app", "localhost:8000"]
-
-#load environment variables
-load_dotenv()
+# DEBUG = os.environ.get('DEBUG', False).lower() == 'true'
+DEBUG = 'True'
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
  #cryptographic encryption key
 FIELD_ENCRYPTION_KEY = os.getenv('FIELD_ENCRYPTION_KEY')
@@ -72,7 +74,7 @@ ROOT_URLCONF = 'healthcare.urls'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    # "https://4811-102-135-169-195.ngrok-free.app",
+    "https://patient-scheduling.netlify.app",
 ]
 
 TEMPLATES = [
@@ -107,6 +109,9 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+database_url = os.getenv('DATABASE_URL')
+DATABASES['default'] = dj_database_url.parse(database_url)
 
 REST_FRAMEWORK = {
     # 'DEFAULT_RENDERER_CLASSES': [

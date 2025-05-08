@@ -12,3 +12,4 @@ sqlalchemy==2.0.40
 django-celery-results==2.6.0
 drf-yasg==1.21.10
 django-cors-headers==4.7.0
+dj_database_url==2.3.0
