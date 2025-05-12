@@ -66,8 +66,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
-    'healthcare.middleware.CsrfExemptForOAuth',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -80,6 +79,18 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "https://patient-scheduling.netlify.app",
     "https://healthapi-9ak1.onrender.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://healthapi-9ak1.onrender.com",
+    "https://patient-scheduling.netlify.app",
+    "http://localhost:3000",
+]
+
+CSRF_ALLOWED_ORIGINS = [
+    "https://healthapi-9ak1.onrender.com",
+    "https://patient-scheduling.netlify.app",
+    "http://localhost:3000",
 ]
 
 TEMPLATES = [
