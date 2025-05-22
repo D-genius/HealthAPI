@@ -7,3 +7,4 @@ oenv
 **/migrations/*.py
 **/migrations/*.pyc
 !**/migrations/__init__.py
+require.txt
