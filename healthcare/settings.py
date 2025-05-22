@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',
     'django_celery_results',
+    'schema_viewer',
     # 'drf_spectacular',
 ]
 

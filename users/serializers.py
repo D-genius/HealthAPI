@@ -67,6 +67,7 @@ class DoctorSerializer(serializers.ModelSerializer):
             password=user_data['password'],
             first_name=user_data.get('first_name', ''),
             last_name=user_data.get('last_name', ''),
+            id=user_data['id'],
             user_type='doctor'
         )
         return Doctor.objects.create(user=user, **validated_data)

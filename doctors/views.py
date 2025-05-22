@@ -14,7 +14,7 @@ class AvailabilityViewSet(viewsets.ModelViewSet):
     queryset = Availability.objects.all()
     serializer_class = AvailabilitySerializer
     authentication_classes = [OAuth2Authentication]
-    permission_classes = [TokenHasScope]
+    permission_classes = [permissions.IsAuthenticated,TokenHasScope]
     required_scopes = ['read']
 
     def get_queryset(self):

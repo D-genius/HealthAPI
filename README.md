@@ -16,8 +16,8 @@ DATABASES = {
 }
 
 5. Generate an encryption key and add it to your `.env` file of your root project.
-- python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
-- FIELD_ENCRYPTION_KEY=Your_Key
+- `python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+FIELD_ENCRYPTION_KEY=Your_Key`
 - Run the command `python manage.py shell -c "from django.conf import settings; print(settings.FIELD_ENCRYPTION_KEY)"` to verify encryption key
 
 6. Edit you settings with the valid credentials with your database settings `CELERY_BROKER_URL = 'sqla+postgresql://<user>:<password>@<host>/<database>'`
@@ -29,4 +29,6 @@ DATABASES = {
 - To access the Swagger UI `http://127.0.0.1:8000/swagger/`
 - To access the endpoints `http://127.0.0.1:8000/api/`
 - To access the Documentation `http://127.0.0.1:8000/redoc/`
+- To access the Schema `http://127.0.0.1:8000/schema-viewer/`
+
 
